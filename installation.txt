@@ -1,0 +1,26 @@
+####for using expo custom font 
+expo install --save expo-font
+####navigator installation command
+npm install @react-navigation/native
+
+####react-navigator dependencies installation command
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+####install @react-navigation/stack
+npm install @react-navigation/stack
+####Apploading component
+npm install expo-app-loading
+####Easily adding buttons to the header
+npm install --save react-navigation-header-buttons
+####icons
+npm install --save @expo/vector-icons
+####For using header buttons
+npm install --save react-navigation-header-buttons
+####For bottom tab navigation (it works in both android and ios)
+npm install @react-navigation/bottom-tabs@^5.x
+####Material button tabs navigator (it works only in android)
+npm install @react-navigation/material-bottom-tabs react-native-paper
+#### For drawer navigator
+npm install @react-navigation/drawer@^5.x
+#### Redux installation
+npm install --save redux react-redux
