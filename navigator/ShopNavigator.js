@@ -13,7 +13,7 @@ const ShopNavigator = () =>{
             backgroundColor: Color.primary,
         },
         headerTitleStyle:{
-            fontSize: 20,
+            fontSize: 18,
             fontFamily: 'titleFont'
         },
         headerTintColor: 'white'
