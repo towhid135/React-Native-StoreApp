@@ -1,12 +1,14 @@
 import React,{useLayoutEffect} from 'react';
 import {View,Text,StyleSheet,ScrollView,Image,Button} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import Color from '../../constants/Color';
+import * as cartActions from "../../store/actions/cartAction";
 
 const ProductDetailScreen = props =>{
     const availableProducts = useSelector((state) => state.products.availableProducts);
     const selectedProductId = props.route.params.productId;
     const selectedProduct = availableProducts.find((product) => selectedProductId === product.id);
+    const dispatch = useDispatch();
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -21,7 +23,7 @@ const ProductDetailScreen = props =>{
       <View style={styles.buttonContainer}>
           <Button 
           title="ADD TO CART" 
-          onPress={() => {}} 
+          onPress={() => dispatch(cartActions.addToCart(selectedProduct))} 
           color= {Color.primary}
           />
       </View>

@@ -8,6 +8,8 @@ import productsReducer from './store/reducers/productsReducer';
 import ShopNavigator from './navigator/ShopNavigator';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import cartReducer from './store/reducers/cartReducer';
+//import {composeWithDevTools} from 'redux-devtools-extension';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -18,9 +20,12 @@ const fetchFonts = () => {
 
 const rootReducer = combineReducers({
   products: productsReducer,
+  cart: cartReducer
 });
 
+//const store = createStore(rootReducer,composeWithDevTools());
 const store = createStore(rootReducer);
+
 
 export default function App() {
   [fontFlag,setFontFlag] = useState(false);

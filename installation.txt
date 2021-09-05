@@ -24,3 +24,8 @@ npm install @react-navigation/material-bottom-tabs react-native-paper
 npm install @react-navigation/drawer@^5.x
 #### Redux installation
 npm install --save redux react-redux
+#### For redux development info
+import {composeWithDevTools} from 'redux-devtools-extension';
+const store = createStore(rootReducer,composeWithDevTools());
+Before publish our app we need to remove the composeWithDevTools() and its imort 
+from the code.

@@ -1,10 +1,31 @@
-import React from 'react';
+import React,{useLayoutEffect} from 'react';
 import {FlatList,Text,View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
+import * as cartActions from "../../store/actions/cartAction"
+import {HeaderButton, HeaderButtons,Item} from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 
 const ProductsOverviewScreen = props =>{
     const products = useSelector((state) => state.products.availableProducts);
+    const dispatch = useDispatch();
+    useLayoutEffect(()=>{
+        props.navigation.setOptions({
+            headerRight: () => {
+                return(
+                    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                        <Item
+                         title="cart"
+                         iconName = 'ios-cart'
+                         iconSize = {30} 
+                         color = "white"
+                         onPress = {()=> props.navigation.navigate("CartScreen") }
+                        />
+                    </HeaderButtons>
+                )
+            }
+        })
+    })
     const renderProductItem = itemData =>{
         return (
             <ProductItem 
@@ -15,10 +36,9 @@ const ProductsOverviewScreen = props =>{
                     name:'ProductDetail',
                     params:{productId:itemData.item.id}
                 })}}
-                onAddToCart = {() => {props.navigation.navigate({
-                    name: "CartScreen",
-                    params:{productId:itemData.item.id}
-                })}}
+                onAddToCart = {() => {
+                    dispatch(cartActions.addToCart(itemData.item))
+                }}
             />
             );
     };
