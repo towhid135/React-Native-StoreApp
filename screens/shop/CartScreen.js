@@ -1,11 +1,30 @@
 import React,{useLayoutEffect} from 'react';
-import {View,Text,StyleSheet,Button} from 'react-native';
-import { useSelector } from 'react-redux';
+import {View,Text,StyleSheet,Button, FlatList} from 'react-native';
+import { useSelector,useDispatch } from 'react-redux';
 import Color from '../../constants/Color';
+import CartItem from '../../components/shop/CartItem';
+import { deleteFromCart } from '../../store/actions/cartAction';
+import * as orderActions from '../../store/actions/ordersAction'
 
 
 const CartScreen = props =>{
     const availableProducts = useSelector((state) => state.cart);
+
+    const cartItems = useSelector((state) => {
+        const transformedCartItem = [];
+        for (const key in availableProducts.item){
+            transformedCartItem.push({
+                productId: key,
+                productTitle: state.cart.item[key].productTitle,
+                productPrice: state.cart.item[key].productPrice,
+                quantity: state.cart.item[key].quantity,
+                sum: state.cart.item[key].sum
+
+            });
+        }
+            return transformedCartItem.sort((a,b) => a.productId > b.productId ? 1 : -1);
+    });
+    const dispatch = useDispatch();
     //const selectedProductId = props.route.params.productId;
     //need to add the product id to a list for showing as a cart product
     return(
@@ -15,13 +34,30 @@ const CartScreen = props =>{
                 Total: <Text style={styles.amount}>${availableProducts.totalAmount.toFixed(2)}</Text>
             </Text>
            <View>
-            <Button color={Color.accent} title="Order Now" onPress={()=>{}} />
+            <Button 
+            color={Color.accent} 
+            title="Order Now" 
+            disabled={cartItems.length === 0}  
+            onPress={()=> dispatch(orderActions.addOrder(cartItems,availableProducts.totalAmount)) } 
+
+            />
           </View>
             
         </View>
         
         <View>
-            <Text>CART ITEMS</Text>
+            <FlatList
+            data = {cartItems}
+            keyExtractor = {(item,index) => item.productId}
+            renderItem = {
+                (itemData) => <CartItem 
+                quantity = {itemData.item.quantity} 
+                title = {itemData.item.productTitle}
+                amount = {itemData.item.quantity * itemData.item.productPrice}
+                onRemove = {() => dispatch(deleteFromCart(itemData.item.productId))}
+                />
+            }
+             />
         </View>
     </View>
     );

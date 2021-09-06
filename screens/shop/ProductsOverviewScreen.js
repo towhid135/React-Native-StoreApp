@@ -23,6 +23,19 @@ const ProductsOverviewScreen = props =>{
                         />
                     </HeaderButtons>
                 )
+            },
+            headerLeft: () => {
+                return(
+                    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                        <Item
+                         title="menu"
+                         iconName = 'ios-menu'
+                         iconSize = {30} 
+                         color = "white"
+                         onPress = {()=> props.navigation.toggleDrawer() }
+                        />
+                    </HeaderButtons>
+                )
             }
         })
     })

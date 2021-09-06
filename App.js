@@ -3,12 +3,13 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createStore,combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import ProductsReducer from './store/reducers/productsReducer';
 import productsReducer from './store/reducers/productsReducer';
 import ShopNavigator from './navigator/ShopNavigator';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import cartReducer from './store/reducers/cartReducer';
+import ordersReducer from './store/reducers/ordersReducer';
+import MainNavigator from './navigator/OrdersNavigator';
 //import {composeWithDevTools} from 'redux-devtools-extension';
 
 const fetchFonts = () => {
@@ -20,7 +21,8 @@ const fetchFonts = () => {
 
 const rootReducer = combineReducers({
   products: productsReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders: ordersReducer,
 });
 
 //const store = createStore(rootReducer,composeWithDevTools());
@@ -40,7 +42,7 @@ export default function App() {
 
   return (
     <Provider store={store} >
-      <ShopNavigator />
+      <MainNavigator />
     </Provider>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer}  from '@react-navigation/native';
 import Color from '../constants/Color';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen'
@@ -19,7 +18,7 @@ const ShopNavigator = () =>{
         headerTintColor: 'white'
     }
     return (
-        <NavigationContainer>
+        
             <Stack.Navigator>
                 <Stack.Screen 
                 name="ProductsOverView" 
@@ -39,7 +38,6 @@ const ShopNavigator = () =>{
                 options = {{title:"Cart",...navigationOptions}}
                 />
             </Stack.Navigator>
-        </NavigationContainer>
     );
 }
 
