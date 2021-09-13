@@ -7,11 +7,12 @@ const initialState = {
 export default (state=initialState,action) => {
     switch(action.type){
         case ADD_ORDER:
+            //console.log(new Date.toString());
             const newOrders = new Order(
-                Date.toString(),
+                new Date(),
                 action.orderData.item,
                 action.orderData.amount,
-                Date()
+                new Date()
                 )
             return {...state,orders: state.orders.concat(newOrders)}
     }

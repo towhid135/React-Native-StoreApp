@@ -6,7 +6,6 @@ import CartItem from '../../components/shop/CartItem';
 import { deleteFromCart } from '../../store/actions/cartAction';
 import * as orderActions from '../../store/actions/ordersAction'
 
-
 const CartScreen = props =>{
     const availableProducts = useSelector((state) => state.cart);
 
@@ -51,6 +50,7 @@ const CartScreen = props =>{
             keyExtractor = {(item,index) => item.productId}
             renderItem = {
                 (itemData) => <CartItem 
+                deleteAble = {true}
                 quantity = {itemData.item.quantity} 
                 title = {itemData.item.productTitle}
                 amount = {itemData.item.quantity * itemData.item.productPrice}
