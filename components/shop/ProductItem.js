@@ -19,7 +19,7 @@ const ProductItem = props =>{
         <View style={styles.product} >
             <View style={styles.touchable}>
         
-            <TouchableComponent onPress= {props.onViewDetail} useForeground>
+            <TouchableComponent onPress= {props.onSelect} useForeground>
             <View style={{height:300}}>
 
             <View style={styles.imageContainer}>
@@ -31,12 +31,7 @@ const ProductItem = props =>{
             </View>
 
             <View style={styles.buttonContainer} >
-                <View style={styles.buttonStyle} >
-                   <Button color={Color.primary} title="VIEW DETAILS" onPress={props.onViewDetail} />
-                </View>
-                <View style={styles.buttonStyle} >
-                   <Button color={Color.primary} title="ADD TO CART" onPress={props.onAddToCart} />  
-                </View>
+                {props.children}
             </View>
 
             </View>
@@ -68,11 +63,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         height: "25%",
-    },
-    buttonStyle:{
-        marginTop: 10,
-        width: "40%",
-        padding: 10,
     },
     titleStyle:{
         fontSize: 18,

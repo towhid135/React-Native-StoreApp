@@ -7,13 +7,6 @@ class Order{
         this.date = date;
     }
     get readableDate() {
-        /*return this.date.toLocaleDateString('beng',{
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });*/
         moment.locale('en');
         return moment(this.id).format('MMMM Do YYYY, h:mm:ss');
     }

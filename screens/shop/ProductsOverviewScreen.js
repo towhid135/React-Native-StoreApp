@@ -1,14 +1,16 @@
 import React,{useLayoutEffect} from 'react';
-import {FlatList,Text,View} from 'react-native';
+import {FlatList,Button,View,StyleSheet} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import * as cartActions from "../../store/actions/cartAction"
-import {HeaderButton, HeaderButtons,Item} from 'react-navigation-header-buttons';
+import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
+import Color from '../../constants/Color';
 
 const ProductsOverviewScreen = props =>{
     const products = useSelector((state) => state.products.availableProducts);
     const dispatch = useDispatch();
+
     useLayoutEffect(()=>{
         props.navigation.setOptions({
             headerRight: () => {
@@ -40,19 +42,30 @@ const ProductsOverviewScreen = props =>{
         })
     })
     const renderProductItem = itemData =>{
+        const selectHandler = () => {props.navigation.navigate({
+            name:'ProductDetail',
+            params:{productId:itemData.item.id}
+        })}
         return (
             <ProductItem 
                 image={itemData.item.imageUrl} 
                 title = {itemData.item.title}
                 price = {itemData.item.price}
-                onViewDetail = {() => {props.navigation.navigate({
-                    name:'ProductDetail',
-                    params:{productId:itemData.item.id}
-                })}}
+                onSelect = {selectHandler}
                 onAddToCart = {() => {
                     dispatch(cartActions.addToCart(itemData.item))
                 }}
-            />
+            >
+            <View style={styles.buttonStyle} >
+                <Button color={Color.primary} title="VIEW DETAILS" onPress={selectHandler} />
+            </View>
+            <View style={styles.buttonStyle} >
+                <Button color={Color.primary} title="ADD TO CART" onPress={() => {
+                    dispatch(cartActions.addToCart(itemData.item))
+                }} />  
+            </View>
+    
+            </ProductItem>
             );
     };
     return (
@@ -63,5 +76,13 @@ const ProductsOverviewScreen = props =>{
     />
     );
 }
+
+const styles = StyleSheet.create({
+    buttonStyle:{
+        marginTop: 10,
+        width: "40%",
+        padding: 10,
+    },
+})
 
 export default ProductsOverviewScreen;
