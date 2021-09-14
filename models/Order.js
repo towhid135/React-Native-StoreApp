@@ -8,7 +8,7 @@ class Order{
     }
     get readableDate() {
         moment.locale('en');
-        return moment(this.id).format('MMMM Do YYYY, h:mm:ss');
+        return moment().format('MMMM Do YYYY, h:mm:ss');
     }
 }
 

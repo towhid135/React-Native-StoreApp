@@ -7,9 +7,10 @@ const initialState = {
 export default (state=initialState,action) => {
     switch(action.type){
         case ADD_ORDER:
+            console.log('from ordesReducer',state.orders.length.toString());
             //console.log(new Date.toString());
             const newOrders = new Order(
-                new Date(),
+                state.orders.length.toString(),
                 action.orderData.item,
                 action.orderData.amount,
                 new Date()

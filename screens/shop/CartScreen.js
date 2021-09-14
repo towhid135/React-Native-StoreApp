@@ -4,7 +4,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import Color from '../../constants/Color';
 import CartItem from '../../components/shop/CartItem';
 import { deleteFromCart } from '../../store/actions/cartAction';
-import * as orderActions from '../../store/actions/ordersAction'
+import * as orderActions from '../../store/actions/ordersAction';
+import Card from '../../components/UI/Card';
 
 const CartScreen = props =>{
     const availableProducts = useSelector((state) => state.cart);
@@ -28,7 +29,7 @@ const CartScreen = props =>{
     //need to add the product id to a list for showing as a cart product
     return(
     <View style={styles.screen}>
-        <View style= {styles.summary}>
+        <Card style= {styles.summary}>
             <Text style={styles.summaryText}>
                 Total: <Text style={styles.amount}>${Math.round(availableProducts.totalAmount.toFixed(2)*100)/100}</Text>
             </Text>
@@ -42,7 +43,7 @@ const CartScreen = props =>{
             />
           </View>
             
-        </View>
+        </Card>
         
         <View>
             <FlatList
@@ -74,13 +75,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: 20,
         padding: 10,
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: {width:0,height:2},
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 15,
-        backgroundColor: 'white',
     },
     summaryText:{
         fontFamily: 'textFont',

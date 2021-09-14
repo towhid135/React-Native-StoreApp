@@ -1,5 +1,5 @@
 import React,{useLayoutEffect} from 'react';
-import { FlatList,StyleSheet,View,Button } from 'react-native';
+import { FlatList,StyleSheet,View,Button,Alert } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import Color from '../../constants/Color';
@@ -15,6 +15,23 @@ import {HeaderButtons,Item} from 'react-navigation-header-buttons';
             name:'EditProductStackNav',
             params:{productId: Pid}
         })
+    }
+    const deleteProductHandler = (pid) =>{
+        Alert.alert(
+            'Delete Product!',
+            'Do you want to delete the product?',
+            [
+                {
+                    text: 'No',
+                    style: 'default',
+                },
+                {
+                    text: 'Yes',
+                    onPress: () => dispatch(deleteProduct(pid)),
+                    style: 'destructive'
+                }
+            ]
+        )
     }
     useLayoutEffect(() =>{
         props.navigation.setOptions({
@@ -69,7 +86,7 @@ import {HeaderButtons,Item} from 'react-navigation-header-buttons';
                 </View>
                 <View style={styles.buttonStyle} >
                 <Button color={Color.primary} title="Delete" onPress={()=> {
-                    dispatch(deleteProduct(itemData.item.id))
+                    deleteProductHandler(itemData.item.id)
                 }} />  
                 </View>
                 </ProductItem>
