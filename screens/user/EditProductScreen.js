@@ -4,6 +4,7 @@ import { HeaderButtons,Item } from 'react-navigation-header-buttons';
 import {useSelector,useDispatch} from 'react-redux';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import * as productsActions from '../../store/actions/productsAction';
+import Input from '../../components/UI/Input';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 const formReducer = (state,action) =>{
@@ -133,51 +134,56 @@ const EditProductScreen = props => {
     return (
         <ScrollView>
           <View style={styles.form}>
-                <View style={styles.formControl}>
-                    <Text style={styles.label}>Title</Text>
-                    <TextInput 
-                    keyboardType='default'  
-                    value={formState.inputValues.title} style={styles.input} 
-                    onChangeText={titleChangeHandler.bind(this,'title')} 
-                    autoCapitalize='sentences'
-                    autoCorrect
-                    autoCompleteType='name'
-                    returnKeyType='next'
-                    />
-                    {!formState.inputValidity.formIsValid && <View> 
-                        <Text >Please enter a valid title!</Text>
-                        </View>}
-                </View>
-                <View style={styles.formControl}>
-                    <Text style={styles.label}>Image Url</Text>
-                    <TextInput 
-                    value={formState.inputValues.imageUrl} 
-                    style={styles.input} 
-                    onChangeText={titleChangeHandler.bind(this,'imageUrl')} 
-                    returnKeyType='next'
-                    />
-                </View>
-                {selectedProductId ? null : <View style={styles.formControl}>
-                    <Text style={styles.label}>Price</Text>
-                    <TextInput 
-                    keyboardType='decimal-pad' 
-                    value={formState.inputValues.price} style={styles.input} 
-                    onChangeText={titleChangeHandler.bind(this,'price')} 
-                    returnKeyType='next'
-                    />
-                </View>
-                }
-                <View style={styles.formControl}>
-                    <Text style={styles.label}>Description</Text>
-                    <TextInput 
-                    value={formState.inputValues.description} 
-                    style={styles.input} 
-                    onChangeText={titleChangeHandler.bind(this,'description')} 
-                    multiline={true}
-                    textAlignVertical='top'
-                    returnKeyType='done'
-                    />
-                </View>
+            <Input 
+              inputType = 'title'
+              value={formState.inputValues.title}
+              titleHandler={titleChangeHandler.bind(this,'title')}
+              formValidation={formState.inputValidity.title}
+              textinputProps = {{
+                keyboardType: 'default',
+                autoCapitalize:'sentences',
+                autoCompleteType:'name',
+                returnKeyType:'next',
+
+              }}
+
+            />
+            <Input 
+              inputType = 'Image url'
+              value={formState.inputValues.imageUrl}
+              titleHandler={titleChangeHandler.bind(this,'imageUrl')}
+              formValidation={formState.inputValidity.imageUrl}
+              textinputProps={
+                {returnKeyType:'next'}
+              }
+
+            />
+            { !selectedProductId && <Input 
+              inputType = 'Price'
+              value={formState.inputValues.price}
+              titleHandler={titleChangeHandler.bind(this,'price')}
+              formValidation={formState.inputValidity.price}
+              textInputProps={{
+                keyboardType:'decimal-pad',
+                returnKeyType:'next'
+
+              }}
+
+            />
+            }
+            <Input 
+              inputType = 'Description'
+              value={formState.inputValues.description}
+              titleHandler={titleChangeHandler.bind(this,'description')}
+              formValidation={formState.inputValidity.description}
+              textInputProps={{
+                multiline: true,
+                textAlignVertical:'top',
+                returnKeyType:'done'
+              }}
+
+            />
+            
           </View>
         </ScrollView>
     );
@@ -186,22 +192,6 @@ const EditProductScreen = props => {
 const styles = StyleSheet.create({
     form:{
         margin: 20,
-    },
-    formControl:{
-        width: "100%"
-    },
-    label:{
-        fontFamily: 'titleFont',
-        marginVertical: 8,
-
-    },
-    input:{
-        paddingHorizontal: 2,
-        paddingVertical: 5,
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        marginVertical: 5,
-        fontFamily: 'textFont',
     },
 })
 
