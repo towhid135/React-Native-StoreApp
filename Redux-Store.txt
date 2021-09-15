@@ -1,0 +1,52 @@
+By using the redux-store we can globally available the data. We have to build the data store
+by using "createStore" from redux.the createStore function takes reducer as an argument.
+We can combine multiple reducer using "combineReducers" from redux. So, the createStore will
+take the combineReducers as its argument. the created stor will be assigned to the properties
+of Provider imported from react-redux. The Provider will wrap the main navigation container.
+hence, now all of the screens inside of the navigation container will have access to the data
+of the store using useSelector of react-redux. useSelector takes a function and sends the
+current state to its argument.
+combineReducers consists of multiple or single reducer. A reducer is nothing but a function
+that takes state and action as its argument and also returns a state. A state is an object
+which holds datas to its properties. An action is also a function that can takes any information
+as its argument and returns an object. The returned object will contain an action type ( or 
+anything the user wants) and datas. The action needs to dispatch using useDispatch from reat-
+redux.
+When an action is dispatched the retured object is broadcast to all the reducers. All the
+reducers will get this object automatically to its action argument.
+
+*************************************************************
+Example:
+******
+App.js
+******
+const rootReducer = combineReducers({
+    data1: reducer1,
+})
+
+const store = createStore(rootReducer)
+
+*************************
+store>reducer>reducer1.js
+*************************
+const initialState={
+    count: 0
+}
+const reducer1 = (state=initialState,action){
+    switch(action.type){
+        case INCREASE:
+            return {...state,count:state.count++}
+    }
+    return state
+}
+
+******************************
+store>action>reducer1Action.js
+******************************
+export const INCREASE = 'INCREASE'
+
+export const reducer1Action = data =>{
+    return {type:INCREASE,data: data}
+} 
+******************************************************************
+

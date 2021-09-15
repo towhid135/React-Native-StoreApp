@@ -1,0 +1,27 @@
+useReducer hook takes reducer function and initialState as an argument. This reducer
+is not the reducer function of redux but its structure is same, it also returns an object and
+takes state and action as its argument.
+The useReducer returns the current state and a dispatch method along with it. This dispatch
+method also returns an object like redux dispatch function.
+
+**************************************************************
+Example:
+initialState = {
+    count: 0,
+}
+
+const reducer = (state,action){
+    switch(action.type){
+        case 'increment':
+            return {...state,count:state.count++};
+    }
+    return state
+}
+
+const [currentState,dispatch] = useRef(reducer,initialState);
+
+<Button onPress = {() => dispatch({type:'increment'})}
+*****************************************************************
+in the reducer function, the reducer will automatically get the values of initialState to
+its state argument. When the dispatch will be called the object of the dispatch will be
+automatically gets by the action argument of the reducer.
