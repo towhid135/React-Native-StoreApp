@@ -13,17 +13,19 @@ const ProductsOverviewScreen = props =>{
     const dispatch = useDispatch();
 
     //total orders
-    const totalOrders = useSelector((state) => Object.keys(state.cart.item).length );
+    const totalCartItem = useSelector((state) => Object.keys(state.cart.item).length );
 
     useLayoutEffect(()=>{
         props.navigation.setOptions({
             headerRight: () => {
                 return(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        <Badge value= {totalOrders} 
+                        {
+                        totalCartItem>=1 && <Badge value= {totalCartItem} 
                         status="success"  
                         containerStyle={{ position: 'absolute', top: -4, right: 3 }} /
                         >
+                        }
 
                         <Item
                          title="cart"
