@@ -6,16 +6,25 @@ import * as cartActions from "../../store/actions/cartAction"
 import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import Color from '../../constants/Color';
+import { Badge } from 'react-native-elements';
 
 const ProductsOverviewScreen = props =>{
     const products = useSelector((state) => state.products.availableProducts);
     const dispatch = useDispatch();
+
+    //total orders
+    const totalOrders = useSelector((state) => Object.keys(state.cart.item).length );
 
     useLayoutEffect(()=>{
         props.navigation.setOptions({
             headerRight: () => {
                 return(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                        <Badge value= {totalOrders} 
+                        status="success"  
+                        containerStyle={{ position: 'absolute', top: -4, right: 3 }} /
+                        >
+
                         <Item
                          title="cart"
                          iconName = 'ios-cart'
