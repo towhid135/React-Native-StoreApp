@@ -1,4 +1,4 @@
-import React,{useLayoutEffect} from 'react';
+import React,{useLayoutEffect,useEffect} from 'react';
 import {FlatList,Button,View,StyleSheet} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
@@ -7,13 +7,18 @@ import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import Color from '../../constants/Color';
 import { Badge } from 'react-native-elements';
+import { fetchProduct } from '../../store/actions/productsAction';
 
 const ProductsOverviewScreen = props =>{
     const products = useSelector((state) => state.products.availableProducts);
     const dispatch = useDispatch();
-
+    const fetchDispatch = useDispatch();
     //total orders
     const totalCartItem = useSelector((state) => Object.keys(state.cart.item).length );
+
+    useEffect(()=>{
+        fetchDispatch(fetchProduct());
+    },[fetchDispatch])
 
     useLayoutEffect(()=>{
         props.navigation.setOptions({
@@ -49,6 +54,7 @@ const ProductsOverviewScreen = props =>{
                 )
             }
         })
+
     })
     const renderProductItem = itemData =>{
         const selectHandler = () => {props.navigation.navigate({
