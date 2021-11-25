@@ -20,12 +20,10 @@ const ProductsOverviewScreen = props =>{
             headerRight: () => {
                 return(
                     <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-                        {
-                        totalCartItem>=1 && <Badge value= {totalCartItem} 
+                        <Badge value= {totalCartItem} 
                         status="success"  
-                        containerStyle={{ position: 'absolute', top: -4, right: 3 }} /
-                        >
-                        }
+                        containerStyle={{ position: 'absolute', top: -4, right: 3 }} 
+                        />
 
                         <Item
                          title="cart"
