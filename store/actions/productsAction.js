@@ -59,12 +59,12 @@ export const fetchProduct = () =>{
         //console.log('keys',key);
         //console.log('fetched products',fetchedProducts);
 
-        for (key in resData){
+        for (const key in resData){
             resData[key] = {...resData[key],id:key}
         }
 
         const fetchedProducts = Object.values(resData);
-        console.log('fetched products',fetchedProducts,'count',count);
+        //console.log('fetched products',fetchedProducts,'count',count);
 
         dispatch({
             type: FETCH_PRODUCT,
