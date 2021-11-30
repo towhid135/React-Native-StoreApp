@@ -1,5 +1,5 @@
-import React,{useLayoutEffect,useEffect} from 'react';
-import {FlatList,Button,View,StyleSheet} from 'react-native';
+import React,{useCallback,useLayoutEffect,useEffect,useState} from 'react';
+import {FlatList,Button,View,StyleSheet,ActivityIndicator,Text} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import * as cartActions from "../../store/actions/cartAction"
@@ -10,15 +10,32 @@ import { Badge } from 'react-native-elements';
 import { fetchProduct } from '../../store/actions/productsAction';
 
 const ProductsOverviewScreen = props =>{
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState(undefined);
     const products = useSelector((state) => state.products.availableProducts);
     const dispatch = useDispatch();
-    const fetchDispatch = useDispatch();
     //total orders
     const totalCartItem = useSelector((state) => Object.keys(state.cart.item).length );
 
+    const loadProducts = useCallback( async () =>{
+        setError(null);
+        setIsLoading(true);
+            try{
+                await dispatch(fetchProduct());
+            }
+            catch(err){
+                setError(err.message);
+            }
+            setIsLoading(false);
+
+    },[dispatch]
+
+    )
+
     useEffect(()=>{
-        fetchDispatch(fetchProduct());
-    },[fetchDispatch])
+        loadProducts();
+    },[dispatch,loadProducts]
+    )
 
     useLayoutEffect(()=>{
         props.navigation.setOptions({
@@ -61,6 +78,7 @@ const ProductsOverviewScreen = props =>{
             name:'ProductDetail',
             params:{productId:itemData.item.id}
         })}
+
         return (
             <ProductItem 
                 image={itemData.item.imageUrl} 
@@ -83,6 +101,32 @@ const ProductsOverviewScreen = props =>{
             </ProductItem>
             );
     };
+
+    if(error){
+        return(
+            <View style = {styles.spinnerContainer}>
+                <Text>{error}</Text>
+                <Button title="Try Again" onPress={loadProducts} color={Color.primary} />
+            </View>
+        )
+    }
+
+    if(isLoading){
+        return (
+        <View style = {styles.spinnerContainer}>
+            <ActivityIndicator size='large' color={Color.primary} />
+        </View>
+        )
+    }
+
+    else if(!isLoading && products.length < 1){
+        return(
+        <View style = {styles.spinnerContainer}>
+            <Text style={{fontWeight:'bold'}}>No products found, please add some.</Text>
+        </View>
+        )
+    }
+
     return (
     <FlatList
     data={products}
@@ -97,6 +141,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: "40%",
         padding: 10,
+    },
+    spinnerContainer:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 })
 

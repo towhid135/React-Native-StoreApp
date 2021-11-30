@@ -45,14 +45,18 @@ export const createProduct = (title,description,imageUrl,price) =>{
 
 }
 
-var count = 0;
-
 export const fetchProduct = () =>{
     return async dispatch => {
-        const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json');
+        try{
 
+            const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json')
+        
+        if(!response.ok){
+            //if status code is 200 then response is okay
+            throw new Error('An error occured!');
+        }
+        
         const resData = await response.json();
-        count++;
 
         //const fetchedProducts = Object.values(resData);
         //const key = Object.keys(resData);
@@ -70,6 +74,10 @@ export const fetchProduct = () =>{
             type: FETCH_PRODUCT,
             fetchedProducts: fetchedProducts
         })
+    } catch (err) {
+        throw err;
+    }
+        
     }
 }
 

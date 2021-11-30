@@ -51,12 +51,18 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
     },
+    imageContainer:{
+        height: "60%",
+        width: "100%",
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+        overflow: 'hidden',
+    },
     buttonContainer:{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        height: "25%",
+        height: "45%",
     },
     titleStyle:{
         fontSize: 18,
@@ -69,13 +75,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: "15%",
         padding: 10,
-    },
-    imageContainer:{
-        height: "60%",
-        width: "100%",
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
-        overflow: 'hidden',
     },
     touchable:{
         borderRadius: 10,

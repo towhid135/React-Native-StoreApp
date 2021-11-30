@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: 'white',
         //flex: 1,
-        //flexWrap:'wrap'
+        //flexWrap:'wrap',
     }
 })
 
