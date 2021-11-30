@@ -4,7 +4,16 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 
 export const deleteProduct = productId =>{
-    return {type: DELETE_PRODUCT, pid: productId};
+
+    return async dispatch => {
+        await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${productId}.json`,{
+            method: 'DELETE'
+        })
+
+        dispatch({
+            type: DELETE_PRODUCT, pid: productId
+        })
+    }
 }
 
 /*In modern javascript if the property and it's value is same then we can only write 
@@ -82,12 +91,34 @@ export const fetchProduct = () =>{
 }
 
 export const updateProduct = (id,title,description,imageUrl) =>{
-    return {
-        type:UPDATE_PRODUCT, 
-        pid: id,
-        productData:{
-        title: title,
-        description: description,
-        imageUrl,
-    }}
+    
+    return async dispatch => {
+        //here we have used back ticks instead of quote
+        await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${id}.json`,
+        {
+            /* if method is PATCH then only changed value would be updated. if method is PUT then the 
+            whole data will be override */
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                description: description,
+                imageUrl: imageUrl,
+                title: title
+            })
+        }
+        );
+
+        dispatch(
+            {
+                type:UPDATE_PRODUCT, 
+                pid: id,
+                productData:{
+                title: title,
+                description: description,
+                imageUrl,
+            }}
+        )
+    }
 }
