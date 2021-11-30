@@ -32,6 +32,13 @@ const ProductsOverviewScreen = props =>{
 
     )
 
+    //fetch data if data is changed on the server
+    useEffect(() => {
+        const focus = props.navigation.addListener('focus',loadProducts)
+
+        return focus;
+    },[loadProducts])
+
     useEffect(()=>{
         loadProducts();
     },[dispatch,loadProducts]
