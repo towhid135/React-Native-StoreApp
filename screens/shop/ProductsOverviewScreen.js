@@ -81,10 +81,12 @@ const ProductsOverviewScreen = props =>{
 
     })
     const renderProductItem = itemData =>{
-        const selectHandler = () => {props.navigation.navigate({
+        const selectHandler = () => {
+            props.navigation.navigate({
             name:'ProductDetail',
             params:{productId:itemData.item.id}
-        })}
+        })
+    }
 
         return (
             <ProductItem 

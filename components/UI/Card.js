@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
         elevation: 5,
         borderRadius: 15,
         backgroundColor: 'white',
-        //flex: 1,
-        //flexWrap:'wrap',
     }
 })
 
