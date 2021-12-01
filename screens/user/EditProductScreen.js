@@ -1,10 +1,13 @@
-import React,{useLayoutEffect,useCallback,useReducer} from 'react';
+import React,{useLayoutEffect,useCallback,useReducer, useState, useEffect} from 'react';
 import {View,Text,StyleSheet,TextInput,ScrollView, Alert} from 'react-native';
 import { HeaderButtons,Item } from 'react-navigation-header-buttons';
 import {useSelector,useDispatch} from 'react-redux';
 import CustomHeaderButton from '../../components/UI/CustomHeaderButton';
 import * as productsActions from '../../store/actions/productsAction';
 import Input from '../../components/UI/Input';
+import { Button } from 'react-native-elements/dist/buttons/Button';
+import { ActivityIndicator } from 'react-native-paper';
+import Color from '../../constants/Color';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 const formReducer = (state,action) =>{
@@ -34,6 +37,8 @@ const formReducer = (state,action) =>{
 const EditProductScreen = props => {
     var selectedProductId;
     var selectedProduct;
+    var [isLoading,setIsLoading] = useState(false);
+    var [isError,setIsError] = useState();
     const dispatch = useDispatch();
     if(props.route.params.productId){
         selectedProductId = props.route.params.productId;
@@ -58,7 +63,7 @@ const EditProductScreen = props => {
         formIsValid: selectedProductId ? true : false
     })
 
-
+   
     useLayoutEffect( () => {
         const submitFun = props.route.params.submit;
         props.navigation.setOptions({
@@ -79,32 +84,56 @@ const EditProductScreen = props => {
         })
     })
 
-    const submitHandler = useCallback(() =>{
+    useEffect(()=>{
+        if(isError){
+        Alert.alert(
+            'Error Alert',
+             isError,
+             [
+                 {
+                     text: 'Ok',
+                     style: 'destructive'
+                 }
+             ]
+            )
+        }
+    },[isError])
+
+    const submitHandler = useCallback(async () =>{
         if(!formState.formIsValid){
             Alert.alert('Wrong Input','Please enter correct input',[
                 {text:'Okay',style:'destructive'}
             ])
             return
         }
-        if(selectedProductId){
-            //if edit mode
-            dispatch(productsActions.updateProduct(
-                selectedProductId,
-                formState.inputValues.title,
-                formState.inputValues.description,
-                formState.inputValues.imageUrl,
-            ))
+        try{
+            setIsError(null);
+            setIsLoading(true)
+            if(selectedProductId){
+                //if edit mode
+                await dispatch(productsActions.updateProduct(
+                    selectedProductId,
+                    formState.inputValues.title,
+                    formState.inputValues.description,
+                    formState.inputValues.imageUrl,
+                ))
+                setIsLoading(false);
+            }
+            else{
+                //add mode
+                await dispatch(productsActions.createProduct(
+                    formState.inputValues.title,
+                    formState.inputValues.description,
+                    formState.inputValues.imageUrl,
+                    +formState.inputValues.price,
+                ))
+                setIsLoading(false);
+            }
+            props.navigation.goBack();
         }
-        else{
-            //add mode
-            dispatch(productsActions.createProduct(
-                formState.inputValues.title,
-                formState.inputValues.description,
-                formState.inputValues.imageUrl,
-                +formState.inputValues.price,
-            ))
+        catch(err) {
+            setIsError(err.message);
         }
-        props.navigation.goBack();
     },[
         dispatch,
         selectedProductId,
@@ -112,7 +141,9 @@ const EditProductScreen = props => {
         formState.inputValues.imageUrl,
         formState.inputValues.description,
         formState.inputValues.price,
-        formState.inputValidity.formIsValid])
+        formState.inputValidity.formIsValid
+    ]
+        )
 
     const titleChangeHandler = (inputIdentifier,text) =>{
         let isValid = false;
@@ -129,6 +160,14 @@ const EditProductScreen = props => {
             isValid:isValid,
             input: inputIdentifier,
         });
+    }
+
+    if(isLoading){
+        return(
+        <View style = {styles.spinnerContainer} >
+            <ActivityIndicator size='large' color={Color.primary} />
+        </View>
+        )
     }
 
     return (
@@ -193,6 +232,11 @@ const styles = StyleSheet.create({
     form:{
         margin: 20,
     },
+    spinnerContainer:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 })
 
 export default EditProductScreen;

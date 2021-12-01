@@ -94,7 +94,7 @@ export const updateProduct = (id,title,description,imageUrl) =>{
     
     return async dispatch => {
         //here we have used back ticks instead of quote
-        await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${id}.json`,
+        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${id}.json`,
         {
             /* if method is PATCH then only changed value would be updated. if method is PUT then the 
             whole data will be override */
@@ -109,6 +109,8 @@ export const updateProduct = (id,title,description,imageUrl) =>{
             })
         }
         );
+
+        if(!response.ok) throw new Error("Something went wrong!");
 
         dispatch(
             {
