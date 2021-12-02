@@ -10,6 +10,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import Color from '../../constants/Color';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
 const formReducer = (state,action) =>{
     if(action.type === FORM_INPUT_UPDATE){
         const updatedValue = {
@@ -159,7 +160,8 @@ const EditProductScreen = props => {
             value: text,
             isValid:isValid,
             input: inputIdentifier,
-        });
+        }
+        );
     }
 
     if(isLoading){
