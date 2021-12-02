@@ -11,6 +11,7 @@ import {
 import Input from '../../components/UI/Input';
 import Card from '../../components/UI/Card';
 import Color from "../../constants/Color";
+import {LinearGradient} from 'expo-linear-gradient'
 
 const AuthScreen = () =>{
     return(
@@ -18,6 +19,7 @@ const AuthScreen = () =>{
          style = {styles.screen}
          keyboardVerticalOffset={50} 
         >
+        <LinearGradient colors={[Color.accent,Color.primary,Color.darkGray]} style={styles.gradient} >
             <Card style={styles.authContainer}>
                 <ScrollView>
                     <Input
@@ -47,21 +49,25 @@ const AuthScreen = () =>{
                       formValidation = {false}
                       titleHandler = {() => {}}
                     />
-  
+                    <View style={styles.buttonContainer}>
                     <Button
                     title = "Login"
                     color = {Color.primary}
                     onPress={() => {}}
                     />
+                    </View>
 
+                    <View style={styles.buttonContainer}>
                    <Button
                     title = "Switch to Sign Up"
                     color = {Color.accent}
                     onPress={() => {}}
                     />
+                    </View>
 
                 </ScrollView>
             </Card>
+        </LinearGradient>
 
         </KeyboardAvoidingView>
     )
@@ -78,6 +84,16 @@ const styles = StyleSheet.create({
         maxWidth: 400,
         maxHeight: 400,
         padding: 20,
+    },
+    gradient:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonContainer:{
+        marginTop: 10,
     }
 })
 

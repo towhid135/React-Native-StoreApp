@@ -22,6 +22,7 @@ const AuthNavigator = () =>{
 
 const ShopNavigator = () =>{
     const Stack = createStackNavigator();
+
     var navigationOptions = {
         headerStyle: {
             backgroundColor: Color.primary,
@@ -38,6 +39,10 @@ const ShopNavigator = () =>{
                 <Stack.Screen 
                  name = 'authScreen'
                  component = {AuthNavigator}
+                 options={{
+                     title: 'Login',
+                     ...navigationOptions
+                 }}
                 />
                 <Stack.Screen 
                 name="ProductsOverView" 
