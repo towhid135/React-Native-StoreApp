@@ -58,7 +58,7 @@ export const fetchProduct = () =>{
     return async dispatch => {
         try{
 
-            const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json')
+        const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json')
         
         if(!response.ok){
             //if status code is 200 then response is okay
@@ -66,11 +66,6 @@ export const fetchProduct = () =>{
         }
         
         const resData = await response.json();
-
-        //const fetchedProducts = Object.values(resData);
-        //const key = Object.keys(resData);
-        //console.log('keys',key);
-        //console.log('fetched products',fetchedProducts);
 
         for (const key in resData){
             resData[key] = {...resData[key],id:key}

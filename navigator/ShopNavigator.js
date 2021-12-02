@@ -4,6 +4,21 @@ import Color from '../constants/Color';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen'
 import CartScreen from '../screens/shop/CartScreen';
+import AuthScreen from '../screens/user/AuthScreen';
+
+const AuthNavigator = () =>{
+    const Stack = createStackNavigator();
+
+    return (
+        <Stack.Navigator>
+            <Stack.Screen 
+            name='authNavScreen' 
+            component={AuthScreen} 
+            options={{headerShown: false}}
+            />
+        </Stack.Navigator>
+    )
+}
 
 const ShopNavigator = () =>{
     const Stack = createStackNavigator();
@@ -20,6 +35,10 @@ const ShopNavigator = () =>{
     return (
         
             <Stack.Navigator>
+                <Stack.Screen 
+                 name = 'authScreen'
+                 component = {AuthNavigator}
+                />
                 <Stack.Screen 
                 name="ProductsOverView" 
                 component={ProductsOverviewScreen}
