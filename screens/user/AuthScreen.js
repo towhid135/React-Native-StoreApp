@@ -6,7 +6,9 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    Button
+    Button,
+    ActivityIndicator,
+    Alert,
 } from 'react-native';
 import Input from '../../components/UI/Input';
 import Card from '../../components/UI/Card';
@@ -14,12 +16,28 @@ import Color from "../../constants/Color";
 import {LinearGradient} from 'expo-linear-gradient';
 import * as authActions from '../../store/actions/authAction'
 import {useDispatch} from 'react-redux';
+import {StackActions} from '@react-navigation/native';
 
 const AUTH_INPUT_UPDATE = 'AUTH_INPUT_UPDATE';
+const SWITCH_UPDATE = 'SWITCH_UPDATE';
+const LOADING = 'LOADING';
+
 const formReducer = (state,action) =>{
     switch(action.type){
         case AUTH_INPUT_UPDATE:
             return {...state,[action.inputFieldName]: action.authText}
+        case SWITCH_UPDATE:
+            return {
+                ...state,
+                email: null,
+                password: null,
+                isLoginMode: !state.isLoginMode
+            }
+        case LOADING:
+            return {
+                ...state,
+                isAuthentication: !state.isAuthentication
+            }
         default:
             return state
     }
@@ -27,9 +45,11 @@ const formReducer = (state,action) =>{
 
 const initialState = {
     email: null,
-    password: null
+    password: null,
+    isLoginMode: true,
+    isAuthentication: false
 }
-const AuthScreen = () =>{
+const AuthScreen = props =>{
 
     const dispatch = useDispatch();
     const [formState,formStateDispatch] = useReducer(formReducer,initialState);
@@ -42,6 +62,38 @@ const AuthScreen = () =>{
         })
     }
 
+    const loginSignupButtonHandler = async () =>{
+        try{
+            formStateDispatch({type: LOADING});
+            if(formState.isLoginMode) 
+             {
+                 await dispatch(authActions.Login(formState.email,formState.password));
+                 props.navigation.dispatch(
+                     StackActions.replace('ProductsOverView')
+                 )
+             }
+            else await dispatch(authActions.Signup(formState.email,formState.password));
+            formStateDispatch({type: LOADING});
+
+        }catch(err){
+            formStateDispatch({type: LOADING});
+            Alert.alert(
+                'Error Found!',
+                 err.message,
+                [{
+                    text: 'Okay',
+                    style: 'destructive'
+                }]
+            )
+        }
+    }
+
+    const switchButtonHandler = () =>{
+        formStateDispatch({
+            type: SWITCH_UPDATE
+        })
+    }
+    
     return(
         <KeyboardAvoidingView
          style = {styles.screen}
@@ -59,7 +111,7 @@ const AuthScreen = () =>{
                       KeyboardType="email-address"
                       autoCapitalize = "none"
                       titleHandler = {authInputHandler.bind(this,'email')}
-                      formValidation = {false}
+                      formValidation = {true}
                       textInputProps = {
                           {
                             KeyboardType:"email-address",
@@ -78,22 +130,25 @@ const AuthScreen = () =>{
                             autoCapitalize: "none"
                           }
                       }
-                      formValidation = {false}
+                      formValidation = {true}
                       titleHandler = {authInputHandler.bind(this,'password')}
                     />
                     <View style={styles.buttonContainer}>
-                    <Button
-                    title = "Login"
+                    {formState.isAuthentication ? (<ActivityIndicator size='small' color={Color.primary} />) :
+                    (<Button
+                    title = {formState.isLoginMode ? 'LOGIN' : 'SIGNUP'}
                     color = {Color.primary}
-                    onPress={() => {dispatch(authActions.Signup(formState.email,formState.password))} }
-                    />
+                    onPress={loginSignupButtonHandler}
+                    />)
+
+                    }
                     </View>
 
                     <View style={styles.buttonContainer}>
                    <Button
-                    title = "Switch to Sign Up"
+                    title = {`Switch to ${formState.isLoginMode ? 'SIGNUP' : 'LOGIN'}`}
                     color = {Color.accent}
-                    onPress={() => {}}
+                    onPress={switchButtonHandler}
                     />
                     </View>
 

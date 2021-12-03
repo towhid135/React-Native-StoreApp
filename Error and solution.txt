@@ -1,0 +1,10 @@
+# Error: Value for message cannot be cast from ReadableNativeMap to String.
+solution: if we want to use the err message from catch statement directly in Alert or in other
+component in string formate then this error arise. To solve this we need to use "err.message" to
+get the error message.
+
+try{
+
+}catch(err){
+    err.message // it is correct form to use
+}

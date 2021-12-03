@@ -40,7 +40,7 @@ const ShopNavigator = () =>{
                  name = 'authScreen'
                  component = {AuthNavigator}
                  options={{
-                     title: 'Login',
+                     title: 'Authentication',
                      ...navigationOptions
                  }}
                 />

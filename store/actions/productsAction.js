@@ -5,8 +5,9 @@ export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 
 export const deleteProduct = productId =>{
 
-    return async dispatch => {
-        await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${productId}.json`,{
+    return async (dispatch,getState) => {
+        const token = getState().auth.token;
+        await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${productId}.json?auth=${token}`,{
             method: 'DELETE'
         })
 
@@ -21,9 +22,10 @@ property name in javascript object */
 export const createProduct = (title,description,imageUrl,price) =>{
 
 
-    return async dispatch =>{
-
-        const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json',{
+    return async (dispatch,getState) =>{
+        const token = getState().auth.token;
+        console.log('create product token',token);
+        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products.json?auth=${token}`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -87,9 +89,10 @@ export const fetchProduct = () =>{
 
 export const updateProduct = (id,title,description,imageUrl) =>{
     
-    return async dispatch => {
+    return async (dispatch,getState) => {
+        const token = getState().auth.token;
         //here we have used back ticks instead of quote
-        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${id}.json`,
+        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products/${id}.json?auth=${token}`,
         {
             /* if method is PATCH then only changed value would be updated. if method is PUT then the 
             whole data will be override */

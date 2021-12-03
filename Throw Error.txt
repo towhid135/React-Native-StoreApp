@@ -1,4 +1,5 @@
-If we have a try and catch block inside of a function and we throw an error from the inside
+#If we have a try and catch block inside of a function and we throw an error from the inside
  of try block then the error will be caught by the catch block. If we throw/re-throw an 
  error from the catch block then the error will be return to the function caller method. In 
  this case the caller of the function should also need to use a try and catch block.
+

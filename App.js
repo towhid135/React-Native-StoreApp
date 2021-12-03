@@ -11,6 +11,7 @@ import cartReducer from './store/reducers/cartReducer';
 import ordersReducer from './store/reducers/ordersReducer';
 import MainNavigator from './navigator/OrdersNavigator';
 import ReduxThunk from 'redux-thunk';
+import authReducer from './store/reducers/authReducer';
 //import {composeWithDevTools} from 'redux-devtools-extension';
 
 const fetchFonts = () => {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
   orders: ordersReducer,
+  auth: authReducer
 });
 
 //const store = createStore(rootReducer,composeWithDevTools());
