@@ -5,6 +5,7 @@ import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen'
 import CartScreen from '../screens/shop/CartScreen';
 import AuthScreen from '../screens/user/AuthScreen';
+import StartupScreen from '../screens/StartupScreen';
 
 const AuthNavigator = () =>{
     const Stack = createStackNavigator();
@@ -36,6 +37,11 @@ const ShopNavigator = () =>{
     return (
         
             <Stack.Navigator>
+                <Stack.Screen
+                name = 'startUpScreen'
+                component = {StartupScreen}
+                />
+
                 <Stack.Screen 
                  name = 'authScreen'
                  component = {AuthNavigator}
