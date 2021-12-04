@@ -24,7 +24,7 @@ export const createProduct = (title,description,imageUrl,price) =>{
 
     return async (dispatch,getState) =>{
         const token = getState().auth.token;
-        console.log('create product token',token);
+        const userId = getState().auth.userId;
         const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/products.json?auth=${token}`,{
             method: 'POST',
             headers: {
@@ -35,6 +35,7 @@ export const createProduct = (title,description,imageUrl,price) =>{
                 description: description,
                 imageUrl,
                 price,
+                ownerId: userId
             })
         })
 
@@ -49,6 +50,7 @@ export const createProduct = (title,description,imageUrl,price) =>{
                     description: description,
                     imageUrl,
                     price,
+                    ownerId: userId
                 }
             }
         )
@@ -57,28 +59,34 @@ export const createProduct = (title,description,imageUrl,price) =>{
 }
 
 export const fetchProduct = () =>{
-    return async dispatch => {
+    return async (dispatch,getState) => {
+        const userId = getState().auth.userId;
         try{
 
         const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json')
         
         if(!response.ok){
-            //if status code is 200 then response is okay
             throw new Error('An error occured!');
         }
         
         const resData = await response.json();
-
-        for (const key in resData){
-            resData[key] = {...resData[key],id:key}
+        
+        //if(resData===null) throw new Error('There is no product in server')
+        
+        let fetchedProducts = [];
+        if(resData!=null){
+            for (const key in resData){
+                resData[key] = {...resData[key],id:key}
+            }
+    
+            fetchedProducts = Object.values(resData);
         }
-
-        const fetchedProducts = Object.values(resData);
         //console.log('fetched products',fetchedProducts,'count',count);
 
         dispatch({
             type: FETCH_PRODUCT,
-            fetchedProducts: fetchedProducts
+            fetchedProducts: fetchedProducts,
+            ownerId: userId
         })
     } catch (err) {
         throw err;

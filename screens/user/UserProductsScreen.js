@@ -1,5 +1,5 @@
 import React,{useLayoutEffect} from 'react';
-import { FlatList,StyleSheet,View,Button,Alert } from 'react-native';
+import { FlatList,StyleSheet,View,Button,Alert,Text } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import Color from '../../constants/Color';
@@ -69,6 +69,13 @@ import {HeaderButtons,Item} from 'react-navigation-header-buttons';
 
     const dispatch = useDispatch();
     const userProducts = useSelector((state) => state.products.userProducts)
+    if(userProducts.length===0){
+        return(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text>No products found, please add some!</Text>
+            </View>
+        )
+    }
     return (
         <FlatList 
         data = {userProducts}

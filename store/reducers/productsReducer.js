@@ -9,7 +9,7 @@ import Product from "../../models/product";
 
 
 const initialState = {
-    availableProducts: PRODUCTS,
+    availableProducts: [],
     userProducts: [],
 }
 
@@ -18,7 +18,7 @@ export default (state=initialState, action) => {
         case CREATE_PRODUCT:
             const newProduct = new Product(
                 action.productData.id,
-                'u1',
+                action.productData.ownerId,
                 action.productData.title,
                 action.productData.imageUrl,
                 action.productData.description,
@@ -33,7 +33,7 @@ export default (state=initialState, action) => {
             return {
                 ...state, 
                 availableProducts: [...PRODUCTS,...action.fetchedProducts],
-                userProducts: [...PRODUCTS,...action.fetchedProducts].filter((prod) => prod.ownerId === 'u1')
+                userProducts: [...PRODUCTS,...action.fetchedProducts].filter((prod) => prod.ownerId === action.ownerId)
             }
         
         case UPDATE_PRODUCT:

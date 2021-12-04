@@ -3,7 +3,7 @@ import Product from '../models/product';
 const PRODUCTS = [
   new Product(
     'p1',
-    'u1',
+    'Um9Eu0wrFxQWJhpx0FnRuuij6Kq2',
     'Red Shirt',
     'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
     'A red t-shirt, perfect for days with non-red weather.',
@@ -11,7 +11,7 @@ const PRODUCTS = [
   ),
   new Product(
     'p2',
-    'u1',
+    'Um9Eu0wrFxQWJhpx0FnRuuij6Kq2',
     'Blue Carpet',
     'https://images.pexels.com/photos/6292/blue-pattern-texture-macro.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
     'Fits your red shirt perfectly. To stand on. Not to wear it.',
@@ -43,7 +43,7 @@ const PRODUCTS = [
   ),
   new Product(
     'p6',
-    'u1',
+    'Um9Eu0wrFxQWJhpx0FnRuuij6Kq2',
     'Pen & Paper',
     'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
     "Can be used for role-playing (not the kind of role-playing you're thinking about...).",

@@ -4,11 +4,11 @@ import Order from "../../models/Order";
 
 //action creator
 export const fetchOrder = () =>{
-    return async dispatch => {
-
+    return async (dispatch,getState) => {
+        const userId = getState().auth.userId;
         try{
 
-        const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/orders/u1.json')
+        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/orders/${userId}.json`)
         
         if(!response.ok){
             //if status code is 200 then response is okay
@@ -16,11 +16,7 @@ export const fetchOrder = () =>{
         }
         
         const resData = await response.json();
-
-        //const fetchedProducts = Object.values(resData);
-        //const key = Object.keys(resData);
-        //console.log('keys',key);
-        //console.log('fetched products',fetchedProducts);
+        
         const loadedOrders = [];
         for (const key in resData){
             const orderItem = new Order(
@@ -47,8 +43,10 @@ export const fetchOrder = () =>{
 export const addOrder = (cartItems,totalAmount) => {
 
     const date = new Date();
-    return async dispatch => {
-        const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/orders/u1.json',{
+    return async (dispatch,getState) => {
+        const userId = getState().auth.userId;
+        const token = getState().auth.token;
+        const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/orders/${userId}.json?auth=${token}`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -59,7 +57,10 @@ export const addOrder = (cartItems,totalAmount) => {
                 date: date.toISOString()
             })
         })
-
+        if(!response.ok){
+            const errObj = await response.json();
+            console.log('ordersAction error: ',errObj.error.message);
+        }
         const resData = await response.json();
 
         dispatch({
