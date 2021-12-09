@@ -30,6 +30,8 @@ export default (state=initialState, action) => {
                 userProducts: state.userProducts.concat(newProduct),
             }
         case FETCH_PRODUCT:
+            //console.log('from productReducer: action.ownerId',action.ownerId);
+            //console.log('from productReducer: fetchedProducts',action.fetchedProducts);
             return {
                 ...state, 
                 availableProducts: [...PRODUCTS,...action.fetchedProducts],

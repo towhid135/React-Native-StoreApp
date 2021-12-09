@@ -1,4 +1,4 @@
-import React,{useReducer} from "react";
+import React,{useReducer,useCallback} from "react";
 import {
     ScrollView,
     View,
@@ -54,23 +54,22 @@ const AuthScreen = props =>{
     const dispatch = useDispatch();
     const [formState,formStateDispatch] = useReducer(formReducer,initialState);
 
-    const authInputHandler = (inputFieldName,text) =>{
+    const authInputHandler = useCallback( (inputFieldName,text) =>{
         formStateDispatch({
             type: AUTH_INPUT_UPDATE,
             inputFieldName: inputFieldName,
             authText: text
-        })
-    }
+        });
+    },[formStateDispatch]
+    )
 
     const loginSignupButtonHandler = async () =>{
+        formStateDispatch({type: LOADING});
         try{
-            formStateDispatch({type: LOADING});
             if(formState.isLoginMode) 
              {
                  await dispatch(authActions.Login(formState.email,formState.password));
-                 props.navigation.dispatch(
-                     StackActions.replace('ProductsOverView')
-                 )
+                formStateDispatch({type: LOADING});
              }
             else await dispatch(authActions.Signup(formState.email,formState.password));
             formStateDispatch({type: LOADING});
@@ -127,7 +126,8 @@ const AuthScreen = props =>{
                           {
                             KeyboardType:"default",
                             minLength: 5,
-                            autoCapitalize: "none"
+                            autoCapitalize: "none",
+                            secureTextEntry: true
                           }
                       }
                       formValidation = {true}

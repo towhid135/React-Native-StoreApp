@@ -8,6 +8,7 @@ const OrderItem = props => {
     const [showDetails,setShowDetails] = useState(false);
     return(
         <Card style={styles.orderItem}>
+            
             <View style={styles.summary}>
                 <Text style={styles.amount}>${props.amount.toFixed(2)}</Text>
                 <Text style={styles.date}>{props.date}</Text>

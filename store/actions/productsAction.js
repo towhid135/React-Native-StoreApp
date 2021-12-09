@@ -61,6 +61,8 @@ export const createProduct = (title,description,imageUrl,price) =>{
 export const fetchProduct = () =>{
     return async (dispatch,getState) => {
         const userId = getState().auth.userId;
+        //console.log('from products action: userId',userId);
+        //console.log('from products action: full store',getState());
         try{
 
         const response = await fetch('https://store-605d1-default-rtdb.firebaseio.com/products.json')

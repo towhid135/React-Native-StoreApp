@@ -3,7 +3,7 @@ import {View,Text,StyleSheet,FlatList,ActivityIndicator} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
 import OrderItem from '../../components/shop/OrderItem';
 import Color from '../../constants/Color';
-import * as orderActions from '../../store/actions/ordersAction'
+import * as orderActions from '../../store/actions/ordersAction';
 
 const OrdersScreen = props => {
     const [isLoading,setIsLoading] = useState(false);
@@ -38,6 +38,7 @@ const OrdersScreen = props => {
     }
 
     return (
+        
         <FlatList
         data = {orders}
         keyExtractor = {(item,index) => item.id}

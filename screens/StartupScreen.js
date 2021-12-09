@@ -4,6 +4,8 @@ import {View,ActivityIndicator,StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 import Color from "../constants/Color";
 import { Authentication,AUTHENTICATE } from "../store/actions/authAction";
+import { StackActions } from "@react-navigation/native";
+import { setTheFlag } from "../store/actions/authAction";
 
 const StartupScreen = props =>{
     const dispatch = useDispatch();
@@ -11,7 +13,7 @@ const StartupScreen = props =>{
         const tryLogin = async () =>{
             const userData = await AsyncStorage.getItem('userData');
             if(!userData){
-                props.navigation.navigate('authScreen');
+                dispatch(setTheFlag());
                 return;
             }
 
@@ -22,25 +24,19 @@ const StartupScreen = props =>{
             const expirationDate = new Date(expiryDate);
 
             if(expirationDate <= new Date() || !token || !userId){
-                props.navigation.navigate('authNavScreen');
+                dispatch(setTheFlag());
                 return;
             }
-
-            dispatch(Authentication({
-                type: AUTHENTICATE,
-                token: token,
-                userId: userId
-            }))
-            props.navigation.navigate('ProductsOverView')
-
-
+            //console.log('startscreen: token,userId,expiryDate',token,userId,expiryDate);
+            const expirationTime = expirationDate.getTime() - new Date().getTime();
+            dispatch(Authentication(token,userId,expirationTime));
 
         }
         tryLogin();
     },[dispatch])
 
     return (
-    <View style={StyleSheet.screen}>
+    <View style={styles.screen}>
         <ActivityIndicator size="large" color={Color.primary} />
     </View>
     );

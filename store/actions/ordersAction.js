@@ -6,6 +6,7 @@ import Order from "../../models/Order";
 export const fetchOrder = () =>{
     return async (dispatch,getState) => {
         const userId = getState().auth.userId;
+        console.log('userId from ordersAction',userId);
         try{
 
         const response = await fetch(`https://store-605d1-default-rtdb.firebaseio.com/orders/${userId}.json`)

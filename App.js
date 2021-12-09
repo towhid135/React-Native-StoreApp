@@ -9,7 +9,7 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import cartReducer from './store/reducers/cartReducer';
 import ordersReducer from './store/reducers/ordersReducer';
-import MainNavigator from './navigator/OrdersNavigator';
+import { AppNavigator } from './navigator/AppNavigator';
 import ReduxThunk from 'redux-thunk';
 import authReducer from './store/reducers/authReducer';
 //import {composeWithDevTools} from 'redux-devtools-extension';
@@ -45,7 +45,7 @@ export default function App() {
 
   return (
     <Provider store={store} >
-      <MainNavigator />
+      <AppNavigator />
     </Provider>
   );
 }
