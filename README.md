@@ -41,9 +41,9 @@ The objective of this project is to learn:
 
 ## Screenshots
 
-Login             |  Login Indicator          | Register
+SignUp             |  SignIn          | Products List
 :-------------------------:|:-------------------------:|:-------------------------
-![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Login.jpg)  |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Spinner-Login.jpg) |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Register.jpg)
+![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Signup.jpg)  |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Login.jpg) |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-list.jpg)
 
 Forgot pass             |  Notes Loading          | Empty
 :-------------------------:|:-------------------------:|:-------------------------
