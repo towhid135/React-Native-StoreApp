@@ -45,14 +45,11 @@ SignUp             |  SignIn          | Products List
 :-------------------------:|:-------------------------:|:-------------------------
 ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Signup.jpg)  |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Login.jpg) |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-list.jpg)
 
-Forgot pass             |  Notes Loading          | Empty
+Add Product             |  Edit Product          | Delete Product
 :-------------------------:|:-------------------------:|:-------------------------
-![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Forgot%20pass.jpg) |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Notes%20Loading.jpg) |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Initial%20View.jpg)
+![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-Add.jpg) |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-Edit.jpg) |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-Delete.jpg)
 
-Saved Notes     |  Add          | Note Settings
-:-------------------------:|:-------------------------:|:-------------------------
-![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Home.jpg)  |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Add.jpg) |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Note%20Settings.jpg)
 
-View Note             |  Edit Note          | Edit Settings |   Drawer Nav
+Product Details           |  Cart          | Orders List |   SignOut
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------
-![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Note-View.jpg)  |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Edit%20Note.jpg) |  ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Edit%20Settings.jpg) | ![](https://github.com/towhid135/React-Native-TODO-2/blob/main/Screenshot/Drawer.jpg) 
+![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Product-Details.jpg)  |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Cart.jpg) |  ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Orders-List.jpg) | ![](https://github.com/towhid135/React-Native-StoreApp/blob/main/screenshots/Drawer-Nav-LogOut.jpg) 
