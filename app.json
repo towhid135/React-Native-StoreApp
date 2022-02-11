@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "StoreApp",
-    "slug": "StoreApp",
+    "slug": "Store-App",
     "version": "1.0.0",
+    "description": "This is a e-commerce store app with all the basic functions.",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,6 +28,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "githubUrl": "https://github.com/towhid135/React-Native-StoreApp"
   }
 }
